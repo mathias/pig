@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe Pig do
 
-  let(:style) { :plain }
-  let(:pig) { Pig.new({:style => style}) }
+  let(:format) { :plain }
+  let(:pig) { Pig.new({:format => format}) }
 
   describe "#call" do
 
@@ -23,15 +23,15 @@ describe Pig do
     let(:date) { stub(:strftime => "12-31-01") }
     let(:commit) { stub(:author => author, :to_s => "393932", :message => commit_message) }
 
-    context "plain style" do
-      let(:style) { :plain }
+    context "plain format" do
+      let(:format) { :plain }
       it "returns the commit message, sha1, date, and author in plain text" do
         pig.send(:format, commit).should == "One great commit\n  393932\n  12-31-01 Dev Author\n\n"
       end
     end
 
-    context "html style" do
-      let(:style) { :html }
+    context "html format" do
+      let(:format) { :html }
       it "returns the commit message, sha1, date, and author in html format" do
         pig.send(:format, commit).should == "<li><h3>One great commit</h3><br />393932<br />12-31-01 Dev Author<br /><br /></li>"
       end
@@ -64,14 +64,14 @@ describe Pig do
         repo.stub(:log, 10).and_return([])
       end
 
-      context "plain style" do
+      context "plain format" do
         it "returns an empty string" do
           pig.history.should == ""
         end
       end
 
-      context "html style" do
-        let(:style) { :html }
+      context "html format" do
+        let(:format) { :html }
         it "returns empty html" do
           pig.history.should == "<html><head><title>Deployed Revisions</title></head><body><ul></ul></body></html>"
         end

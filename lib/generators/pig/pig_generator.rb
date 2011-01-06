@@ -21,8 +21,8 @@ class PigGenerator < Rails::Generators::Base
     if options[:skip_routes]
       puts 'Nothing to do'
     else
-      style_type = options[:html] ? ':html' : ':plain'
-      route("match '#{formatted_revision_path}', :to => Pig.new({:style => #{style_type}})")
+      format = options[:html] ? ':html' : ':plain'
+      route("match '#{formatted_revision_path}', :to => Pig.new({:format => #{format}})")
     end
   end
 

@@ -6,7 +6,7 @@ NUMBER_OF_COMMITS = 10
 class Pig
 
   def initialize options
-    @style = options[:style]
+    @format = options[:format]
   end
 
   def history
@@ -15,7 +15,7 @@ class Pig
     commits.each do |commit|
       results << format(commit)
     end
-    @style == :html ? wrap(results) : results
+    @format == :html ? wrap(results) : results
   end
 
   def call env
@@ -23,13 +23,13 @@ class Pig
   end
 
   def rack_response_template
-    [200, {"Content-Type" => "text/#{@style}"}]
+    [200, {"Content-Type" => "text/#{@format}"}]
   end
 
   private
 
   def format commit
-    case @style
+    case @format
     when :plain
       format_plain commit
     when :html
