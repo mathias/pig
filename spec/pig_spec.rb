@@ -26,14 +26,14 @@ describe Pig do
     context "plain format" do
       let(:format) { :plain }
       it "returns the commit message, sha1, date, and author in plain text" do
-        pig.send(:format, commit).should == "One great commit\n  393932\n  12-31-01 Dev Author\n\n"
+        pig.send(:format_commit, commit).should == "One great commit\n  393932\n  12-31-01 Dev Author\n\n"
       end
     end
 
     context "html format" do
       let(:format) { :html }
       it "returns the commit message, sha1, date, and author in html format" do
-        pig.send(:format, commit).should == "<li><h3>One great commit</h3><br />393932<br />12-31-01 Dev Author<br /><br /></li>"
+        pig.send(:format_commit, commit).should == "<li><h3>One great commit</h3><br />393932<br />12-31-01 Dev Author<br /><br /></li>"
       end
     end
 
@@ -73,7 +73,7 @@ describe Pig do
       context "html format" do
         let(:format) { :html }
         it "returns empty html" do
-          pig.history.should == "<html><head><title>Deployed Revisions</title></head><body><ul></ul></body></html>"
+          pig.history.should == "<html><head><title>Latest Commits</title></head><body><ul></ul></body></html>"
         end
       end
     end

@@ -5,6 +5,8 @@ NUMBER_OF_COMMITS = 10
 
 class Pig
 
+  attr_accessor :format
+
   def initialize options
     @format = options[:format]
   end
@@ -13,9 +15,9 @@ class Pig
     results = ""
     commits = repository.log(NUMBER_OF_COMMITS) || []
     commits.each do |commit|
-      results << format(commit)
+      results << format_commit(commit)
     end
-    @format == :html ? wrap(results) : results
+    wrap(results)
   end
 
   def call env
@@ -28,12 +30,12 @@ class Pig
 
   private
 
-  def format commit
-    case @format
+  def format_commit msg
+    case format
     when :plain
-      format_plain commit
+      format_plain msg
     when :html
-      format_html commit
+      format_html msg
     end
   end
 
@@ -49,8 +51,13 @@ class Pig
     end
   end
 
-  def wrap html_results
-    "<html><head><title>Deployed Revisions</title></head><body><ul>#{html_results}</ul></body></html>"
+  def wrap commits
+    case format
+    when :html
+      "<html><head><title>Latest Commits</title></head><body><ul>#{commits}</ul></body></html>"
+    else
+      commits
+    end
   end
 
   def format_plain commit
