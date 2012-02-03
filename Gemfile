@@ -3,7 +3,7 @@ source :rubygems
 gem 'git'
 
 group :development, :test do
-  gem 'ruby-debug', '0.10.3'
+  gem 'ruby-debug19', :require => 'ruby-debug'
   gem 'rspec',              '2.0.0.beta.17'
   gem 'rspec-core',         '2.0.0.beta.17'
   gem 'rspec-expectations', '2.0.0.beta.17'
